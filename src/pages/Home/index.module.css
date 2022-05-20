@@ -36,6 +36,16 @@ input{
     background-color: white
 }
 
+.noResult{
+    margin: 8rem auto;
+    display: grid;
+    place-items: center;
+}
+
+.noResult h3{
+    color: gray;
+}
+
 
 @media only screen and (max-width: 600px){
     .container {
@@ -45,9 +55,6 @@ input{
 @media only screen and (max-width: 400px){
 	.container{
     padding: 0.5rem;
-}
-.wrapper {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 2fr));
 }
 
 }

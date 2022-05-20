@@ -1,45 +1,71 @@
-/* eslint-disable no-unused-vars */
-import { useEffect, useState, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
-import { Button } from 'antd';
-import Loader from '../../components/Loader';
-import config from '../../config';
-import Status from '../../components/Status';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './index.module.css';
-import { Input } from 'antd';
-
-const { Search } = Input;
+import { FcSearch } from 'react-icons/fc';
+import useDebounce from './useDebounce';
+import axios from 'axios';
 
 const HomeComponent = () => {
+  const [searchTerm, setSearchTerm] = useState('');
   const [state, setState] = useState([]);
-  const handleSearch = async (arg) => {
-    console.log(arg);
-    let res = await axios.get(`http://hn.algolia.com/api/v1/search?query=${arg}`);
-    setState(res.data.hits);
-    console.log(state);
+  const [isSearching, setIsSearching] = useState(false);
+
+  // Custom Hook
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
+  // API search function
+  const searchCharacters = async () => {
+    try {
+      let res = await axios.get(`http://hn.algolia.com/api/v1/search?query=${searchTerm}`);
+      return res.data.hits;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   };
 
-  console.log(state);
+  // Effect for API call
+  useEffect(
+    () => {
+      if (debouncedSearchTerm) {
+        setIsSearching(true);
+        searchCharacters(debouncedSearchTerm).then((state) => {
+          setIsSearching(false);
+          setState(state);
+        });
+      } else {
+        setState([]);
+        setIsSearching(false);
+      }
+    },
+    [debouncedSearchTerm], // Only call effect if debounced search term changes
+  );
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>{`Hacker News Search`}</h2>
+      <h2 className={styles.title}>Hacker News Search</h2>
+      {isSearching && <div>Searching ...</div>}
       <div className={styles.inputDiv}>
         <input
-          onChange={(e) => handleSearch(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="input search text"
-          size="large"
+          type="text"
         />
       </div>
       <div>
         <div className={styles.articleDiv}>
-          {state?.length > 0 &&
+          {state?.length > 0 ? (
             state.map((item, index) => (
               <p key={index} className={styles.articleItem}>
                 <Link to={item.objectID}>{item.title}</Link>
               </p>
-            ))}
+            ))
+          ) : (
+            <div className={styles.noResult}>
+              <FcSearch size={50} />
+              <h3>Type keywords to trigger a search</h3>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import LoaderComponenet from './components/Loader';
 
 const Dashboard = lazy(() => import('./pages/Home'));
-const Character = lazy(() => import('./pages/detail'));
+const DetailPage = lazy(() => import('./pages/detail'));
 const NotFound = lazy(() => import('./pages/404'));
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <Suspense fallback={<LoaderComponenet />}>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/:slug" element={<Character />} />
+        <Route path="/:slug" element={<DetailPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

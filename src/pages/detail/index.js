@@ -4,13 +4,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './index.module.css';
 import { BiUpvote, BiLeftArrowCircle } from 'react-icons/bi';
+import Loader from '../../components/Loader';
 
 const DetailComponent = () => {
   const navigate = useNavigate();
   const { slug } = useParams();
-  const [state, setState] = useState([]);
+  const [state, setState] = useState(null);
 
-  const handleSearch = async (arg) => {
+  const handleSearch = async () => {
     let res = await axios.get(`http://hn.algolia.com/api/v1/items/${slug}`);
     setState(res.data);
   };
@@ -23,15 +24,18 @@ const DetailComponent = () => {
 
   return (
     <div className={styles.container}>
-      {state && (
+      {state ? (
         <>
           <div className={styles.headerNav}>
             <BiLeftArrowCircle onClick={() => navigate('/')} className={styles.icon} />
             <div className={styles.headerContent}>
               <h2 className={styles.title}>{state.title}</h2>
               <div className={styles.point}>
-                <BiUpvote size={20} />
-                <span>{state.points}</span>
+                <span>Votes - </span>
+                <div className={styles.pointTwo}>
+                  <span>{state.points}</span>
+                  <BiUpvote size={20} />
+                </div>
               </div>
             </div>
           </div>
@@ -49,6 +53,8 @@ const DetailComponent = () => {
             ))}
           </div>
         </>
+      ) : (
+        <Loader />
       )}
     </div>
   );
