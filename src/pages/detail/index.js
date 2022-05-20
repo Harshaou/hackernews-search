@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Button } from 'antd';
 import styles from './index.module.css';
+import { BiUpvote, BiLeftArrowCircle } from 'react-icons/bi';
 
 const DetailComponent = () => {
+  const navigate = useNavigate();
   const { slug } = useParams();
   const [state, setState] = useState([]);
 
@@ -20,21 +21,31 @@ const DetailComponent = () => {
     }
   }, [slug]);
 
-  console.log('heloooo', state);
-
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{`Rick & Morty Characters`}</h1>
       {state && (
         <>
-          <p>title: {state.title}</p>
-          <p>Points: {state.title}</p>
+          <div className={styles.headerNav}>
+            <BiLeftArrowCircle onClick={() => navigate('/')} className={styles.icon} />
+            <div className={styles.headerContent}>
+              <h2 className={styles.title}>{state.title}</h2>
+              <div className={styles.point}>
+                <BiUpvote size={20} />
+                <span>{state.points}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="commentBox">
+            <p>-- Comments {state?.children?.length}</p>
+          </div>
           <div>
             {state?.children?.map((item, index) => (
-              <div key={index}>
-                <p>{item.author}</p>
-                <p>{item.text}</p>
-              </div>
+              <div
+                className={styles.comment}
+                key={index}
+                dangerouslySetInnerHTML={{ __html: item.text }}
+              />
             ))}
           </div>
         </>

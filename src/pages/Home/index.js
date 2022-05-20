@@ -24,12 +24,14 @@ const HomeComponent = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{`Hacker News Search`}</h1>
-      <input
-        onChange={(e) => handleSearch(e.target.value)}
-        placeholder="input search text"
-        size="large"
-      />
+      <h2 className={styles.title}>{`Hacker News Search`}</h2>
+      <div className={styles.inputDiv}>
+        <input
+          onChange={(e) => handleSearch(e.target.value)}
+          placeholder="input search text"
+          size="large"
+        />
+      </div>
       <div>
         <div className={styles.articleDiv}>
           {state?.length > 0 &&

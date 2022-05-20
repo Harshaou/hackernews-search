@@ -4,15 +4,53 @@ h3,h4,p{
 
 .title{
     text-align: center;
-    margin-bottom: 3rem;
+    margin: 0px;
+    margin-bottom: 1rem;
 }
 
-.container{
-    max-width: 10000px;
+.container {
+    max-width: 800px;
     min-height: 100vh;
-    background-color: rgb(213, 222, 230);
-    padding: 3.1rem 10rem 5rem 10rem;
+    margin: 10px auto;
+    padding: 10px 30px;
+    border-radius: 5px;
 }
+
+.headerNav{
+    display: flex;
+    align-items: center;
+    margin: 2rem 0rem;
+}
+
+.headerContent{
+    display: grid;
+    place-items: center;
+    flex: 9;
+}
+
+.icon{
+    font-size: 30px;
+    margin-top: -30px;
+    cursor: pointer;
+}
+
+.point{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 20px
+}
+
+
+
+.comment{
+    background-color: white;
+    margin: 10px;
+    padding: 5px;
+    
+}
+
+
 
 
 @media only screen and (max-width: 600px){
