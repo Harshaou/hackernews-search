@@ -1,0 +1,41 @@
+h3,h4,p{
+    margin-bottom: 0px;
+}
+
+.title{
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.container{
+    max-width: 10000px;
+    min-height: 100vh;
+    background-color: rgb(213, 222, 230);
+    padding: 3.1rem 10rem 5rem 10rem;
+}
+
+
+@media only screen and (max-width: 600px){
+    .container {
+    padding: 1rem;
+}
+}
+@media only screen and (max-width: 400px){
+	.container{
+    padding: 0.5rem;
+}
+.wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 2fr));
+}
+
+}
+
+
+
+
+
+
+
+
+
+
