@@ -48,18 +48,21 @@ const HomeComponent = () => {
       <div className={styles.inputDiv}>
         <input
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="input search text"
+          placeholder="Search articles"
           type="text"
         />
       </div>
       <div>
         <div className={styles.articleDiv}>
           {state?.length > 0 ? (
-            state.map((item, index) => (
-              <p key={index} className={styles.articleItem}>
-                <Link to={item.objectID}>{item.title}</Link>
-              </p>
-            ))
+            state.map(
+              (item, index) =>
+                item.title && (
+                  <p key={index} className={styles.articleItem}>
+                    <Link to={item.objectID}>{item.title}</Link>
+                  </p>
+                ),
+            )
           ) : (
             <div className={styles.noResult}>
               <FcSearch size={50} />
