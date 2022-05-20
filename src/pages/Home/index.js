@@ -16,7 +16,7 @@ const HomeComponent = () => {
   // API search function
   const searchCharacters = async () => {
     try {
-      let res = await axios.get(`http://hn.algolia.com/api/v1/search?query=${searchTerm}`);
+      let res = await axios.get(`https://hn.algolia.com/api/v1/search?query=${searchTerm}`);
       return res.data.hits;
     } catch (error) {
       console.error(error);

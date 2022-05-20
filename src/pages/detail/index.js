@@ -12,7 +12,7 @@ const DetailComponent = () => {
   const [state, setState] = useState(null);
 
   const handleSearch = async () => {
-    let res = await axios.get(`http://hn.algolia.com/api/v1/items/${slug}`);
+    let res = await axios.get(`https://hn.algolia.com/api/v1/items/${slug}`);
     setState(res.data);
   };
 
