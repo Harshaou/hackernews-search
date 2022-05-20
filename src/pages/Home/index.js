@@ -50,6 +50,7 @@ const HomeComponent = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search articles"
           type="text"
+          autoFocus
         />
       </div>
       <div>
